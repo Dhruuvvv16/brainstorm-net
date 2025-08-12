@@ -10,7 +10,7 @@ from sklearn.metrics import classification_report
 data = load_breast_cancer()
 X = data.data
 Y = data.target
-X = np.c_[np.ones((X.shape[0], 1)), X]
+X = np.c_[np.ones((X.shape[0], 1)), X] #This adds bias columns to the dataset
 X_train, X_test, y_train, y_test = train_test_split(X, Y, test_size=0.3, random_state=42)
 sc= StandardScaler()
 X_train = sc.fit_transform(X_train)
