@@ -4,6 +4,8 @@ import numpy as np
 from sklearn.datasets import load_breast_cancer
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
+import matplotlib.pyplot as plt
+from sklearn.metrics import classification_report
 
 data = load_breast_cancer()
 X = data.data
@@ -14,3 +16,7 @@ sc= StandardScaler()
 X_train = sc.fit_transform(X_train)
 X_test = sc.transform(X_test)
 model = LogisticRegression1(X_train,y_train,iterations=1000,alpha=0.1)
+theta,cost = model.train()
+print(classification_report(y_test,model.predict(X_test)))
+plt.plot(range(1000),cost)
+plt.show()
