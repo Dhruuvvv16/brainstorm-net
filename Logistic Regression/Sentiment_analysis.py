@@ -68,12 +68,13 @@ for i in range(len(X_train)):
 test_x = np.zeros((len(X_test),3))
 for i in range(len(X_test)):
     test_x[i,:] = extract_features(X_test[i],freq)
-    
+
 scaler = StandardScaler()
 train_x = scaler.fit_transform(train_x)
 test_x = scaler.transform(test_x)
 Model = LogisticRegression1(train_x,y_train,2000,alpha=0.1)
 theta,cost = Model.train()
 plt.plot(range(2000),cost)
+plt.show()
 pred = Model.predict(test_x)
 print(classification_report(y_test,pred))
