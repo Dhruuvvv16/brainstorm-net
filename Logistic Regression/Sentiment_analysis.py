@@ -58,3 +58,22 @@ def extract_features(tweet, freqs, process_tweet=process_tweet):
         x[1] =+ freqs.get((word,1),0)
         x[2] =+ freqs.get((word,0),0)
     return x
+
+freq = frequency(X_train,y_train)
+
+train_x = np.zeros((len(X_train),3))
+for i in range(len(X_train)):
+    train_x[i,:] = extract_features(X_train[i],freq)
+
+test_x = np.zeros((len(X_test),3))
+for i in range(len(X_test)):
+    test_x[i,:] = extract_features(X_test[i],freq)
+    
+scaler = StandardScaler()
+train_x = scaler.fit_transform(train_x)
+test_x = scaler.transform(test_x)
+Model = LogisticRegression1(train_x,y_train,2000,alpha=0.1)
+theta,cost = Model.train()
+plt.plot(range(2000),cost)
+pred = Model.predict(test_x)
+print(classification_report(y_test,pred))
